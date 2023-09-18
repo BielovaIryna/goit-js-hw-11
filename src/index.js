@@ -13,16 +13,16 @@ const renderGallery = (obj, container) => {
   <img src="${e.webformatURL}" alt="${e.tags}" loading="lazy"  />
   <div class="info">
     <p class="info-item">
-      <b>Likes ${e.likes}</b>
+      <b>Likes <span>${e.likes}</span></b>
     </p>
     <p class="info-item">
-      <b>Views ${e.views}</b>
+      <b>Views <span>${e.views}</span></b>
     </p>
     <p class="info-item">
-      <b>Comments ${e.comments}</b>
+      Comments <span>${e.comments}</span>
     </p>
     <p class="info-item">
-      <b>Downloads ${e.downloads}</b>
+      Downloads <span> ${e.downloads}</span>
     </p>
   </div>
 </div>`
