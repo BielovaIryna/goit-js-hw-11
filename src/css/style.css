@@ -42,7 +42,7 @@ body{
 	display: flex;
 	gap: 30px;
 	flex-wrap: wrap;
-	padding-top: 100px;
+	padding: 20px;
 }
 .photo-card{
 	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;;
@@ -50,6 +50,7 @@ body{
 	width: calc((100% - 30px*2)/3);
 	border-radius: 20px;
 	overflow: hidden;
+	background-color: #7B68EE;
 
 }
 img{
@@ -65,7 +66,7 @@ img{
 	display: flex;
 	gap: 5px 20px;
 	flex-wrap: wrap;
-	background-color: #7B68EE;
+	align-items: center;
 	color: #B0C4DE;
 	justify-content: center;
 

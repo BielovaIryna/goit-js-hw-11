@@ -41,12 +41,12 @@ const handleIntersection = (entries, observer) => {
     entries.forEach(async(intersection) => {
     if  (intersection.isIntersecting) {
       page += 1;
-      
-      try {
+        try {
         const cards = await fetchImg(value, page);
         let cardsPage=Math.ceil(page*hitsPerPage);
-       
-        if (cardsPage === cards.totalHits) {
+       console.log(cardsPage);
+       console.log(cards.totalHits);
+        if (cardsPage >= cards.totalHits) {
          
         observer.unobserve(guardEl);
        return  Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
