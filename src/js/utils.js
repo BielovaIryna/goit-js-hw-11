@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 export const fetchImg = async (userRequest, page) => {
-	const res= await axios.get(`${BASE_URL}?key=${API_KEY}&q=${userRequest}&image_type=photo&orientation=horizontal&safesearch=true&${page}&per_page=${hitsPerPage}&page=${page}"`)
+	const res= await axios.get(`${BASE_URL}?key=${API_KEY}&q=${userRequest}&image_type=photo&orientation=horizontal&safesearch=true&${page}&per_page=${hitsPerPage}&page=${page}`)
 		return res.data;
 }
 		

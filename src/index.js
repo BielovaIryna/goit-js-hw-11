@@ -68,24 +68,27 @@ const onSubmit = async (e) => {
   e.preventDefault();
   galleryEl.innerHTML="";
   const { searchQuery } = formEl.elements;
-  value = searchQuery.value;
+  value = searchQuery.value.trim();
   
-  if (value) {
+  if (value==="") {
+    Notiflix.Notify.failure("Input is empty")
+    galleryEl.innerHTML="";
+  } else{
     try {
-      const cards = await fetchImg(value, page);
-     console.log(cards);
-      if (cards.hits.length > 1) {
-        Notiflix.Notify.success(`Hooray! We found ${cards.totalHits} images.`);
-       
-        renderGallery(cards, galleryEl);
-        observer.observe(guardEl);
-      } else {Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.")}
+    const cards = await fetchImg(value, page);
+    page +=1
+    
+    if (cards.hits.length > 1) {
+      Notiflix.Notify.success(`Hooray! We found ${cards.totalHits} images.`);
+     
+      renderGallery(cards, galleryEl);
+      observer.observe(guardEl);
+    } else {Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.")}
 
-        } catch (error) {
-      console.log(error);
-    }
-
-  }
+      } catch (error) {
+    console.log(error);
+  }}
+ 
   
   
   
