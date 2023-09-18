@@ -44,9 +44,7 @@ const handleIntersection = (entries, observer) => {
         try {
         const cards = await fetchImg(value, page);
         let cardsPage=Math.ceil(page*hitsPerPage);
-       console.log(cardsPage);
-       console.log(cards.totalHits);
-        if (cardsPage >= cards.totalHits) {
+         if (cardsPage >= cards.totalHits) {
          
         observer.unobserve(guardEl);
        return  Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
@@ -80,7 +78,7 @@ const onSubmit = async (e) => {
         Notiflix.Notify.success(`Hooray! We found ${cards.totalHits} images.`);
        
         renderGallery(cards, galleryEl);
-        
+        observer.observe(guardEl);
       } else {Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.")}
 
         } catch (error) {
@@ -90,7 +88,7 @@ const onSubmit = async (e) => {
   }
   
   
-  observer.observe(guardEl);
+  
 }
 submitEl.addEventListener("click", onSubmit);
 
