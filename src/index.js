@@ -1,4 +1,5 @@
-import { fetchImg } from "./js/utils";
+import { fetchImg} from "./js/pixabay-api";
+import { renderGallery } from "./js/render-gallery";
 import Notiflix from 'notiflix';
 import "simplelightbox/dist/simple-lightbox.min.css";
 import { hitsPerPage, formEl, galleryEl, guardEl, submitEl} from "./js/const";
@@ -6,38 +7,13 @@ import { hitsPerPage, formEl, galleryEl, guardEl, submitEl} from "./js/const";
 let page = 1;
 let value = "";
 
-
-const renderGallery = (obj, container) => {
-  const markup = obj.hits.map((e) =>
-    `<div class="photo-card">
-  <img src="${e.webformatURL}" alt="${e.tags}" loading="lazy"  />
-  <div class="info">
-    <p class="info-item">
-      <b>Likes <span>${e.likes}</span></b>
-    </p>
-    <p class="info-item">
-      <b>Views <span>${e.views}</span></b>
-    </p>
-    <p class="info-item">
-      Comments <span>${e.comments}</span>
-    </p>
-    <p class="info-item">
-      Downloads <span> ${e.downloads}</span>
-    </p>
-  </div>
-</div>`
-  ).join("");
-
-  container.insertAdjacentHTML("beforeend", markup);
-  
-}
-
 const options = {
   root: null,
   rootMargin: "100px",
   threshold: 0,
 };
 const handleIntersection = (entries, observer) => {
+    
     entries.forEach(async(intersection) => {
     if  (intersection.isIntersecting) {
       page += 1;
@@ -65,6 +41,7 @@ const observer = new IntersectionObserver (handleIntersection, options);
 
 
 const onSubmit = async (e) => {
+  page=1;
   e.preventDefault();
   galleryEl.innerHTML="";
   const { searchQuery } = formEl.elements;
@@ -76,13 +53,16 @@ const onSubmit = async (e) => {
   } else{
     try {
     const cards = await fetchImg(value, page);
-    page +=1
+   
     
     if (cards.hits.length > 1) {
       Notiflix.Notify.success(`Hooray! We found ${cards.totalHits} images.`);
      
       renderGallery(cards, galleryEl);
-      observer.observe(guardEl);
+      if(cards.totalHits>hitsPerPage){
+        observer.observe(guardEl);
+      }
+      
     } else {Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.")}
 
       } catch (error) {
